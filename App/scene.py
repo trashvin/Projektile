@@ -7,6 +7,8 @@ from App.MyClass.laser_defense import *
 from App.MyClass.bomb import *
 from App.MyClass.cannon_ball import *
 
+from App.constant import *
+
 class Scene():
 
     #statc constants
@@ -19,14 +21,21 @@ class Scene():
         self.screen.fill([123,123,123])
         pygame.display.set_caption(self.name)
         pygame.mixer.init(4410, -16, 2, 2048)
+        pygame.font.init()
 
+        title_font_type = os.path.join(get_font_dir(),"hammerhead.ttf")
+        self.title_font = pygame.font.Font(title_font_type,30)
         self.bg_image = os.path.join(get_image_dir(),"background.png")
+        self.clock = pygame.time.Clock()
+        self.frame_rate = 40
 
     def set_background(self):
         bg_image = pygame.transform.scale( pygame.image.load(self.bg_image).convert(),(self.WIDTH,self.HEIGHT))
         self.screen.blit(bg_image,(0,0))
 
     def start(self):
+
+
         city_sprites = pygame.sprite.Group()
         all_sprites = pygame.sprite.Group()
 
@@ -64,10 +73,13 @@ class Scene():
                         running = False
                     if event.key == K_SPACE:
                         tank.move(True)
+                    if event.key == K_r:
+                        self.start()
                 elif event.type == QUIT:
                     running == False
 
             self.set_background()
+            self.screen.blit(put_text("projektile", self.title_font, CLR_WHITE), (10, 10))
             city_sprites.draw(self.screen)
 
             temp_surface = pygame.Surface((self.WIDTH,self.HEIGHT))
@@ -75,12 +87,12 @@ class Scene():
             temp_surface.set_colorkey([0,0,0])
 
             if tank.fire_cannon() == True and cannon_ball.moving == False:
-                cannon_ball.set_pos((tank.rect.x+70,tank.rect.y + 5))
+                cannon_ball.set_source_target(tank,city)
                 cannon_ball.move(True)
                 all_sprites.add(cannon_ball)
 
-            if tank.send_bomb() == True:
-                bomber.move(True)
+            #if city.is_hit() == True:
+            #    bomber.move(True)
 
             if bomber.rect.x <= tank.move_distance and bomb.dropped == False:
                 bomb.set_pos((bomber.rect.x,bomber.rect.y+30))
@@ -105,4 +117,4 @@ class Scene():
             all_sprites.add(tank)
 
             pygame.display.update()
-
+            self.clock.tick(self.frame_rate)

@@ -1,2 +1,5 @@
 
 G_CONSTANT = 9.8
+
+CLR_WHITE = [254,254,254]
+CLR_BLACK = [0,0,0]

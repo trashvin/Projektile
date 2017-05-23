@@ -28,7 +28,7 @@ class Bomber(BaseObject):
             self.move(False)
 
         self.pos = (self.rect.x,self.rect.y)
-        self.clock.tick(40)
+
 
 
 

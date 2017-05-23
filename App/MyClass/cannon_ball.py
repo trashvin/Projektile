@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 
 from App.MyClass.base_object import BaseObject
+from App.library import *
 
 class CannonBall(BaseObject):
 
@@ -9,27 +10,41 @@ class CannonBall(BaseObject):
         super(CannonBall,self).__init__(screen,size,name)
         self.set_image_from_file("cannon_ball.png",1)
 
-        self.target_distance = 0
-        self.target_height = 0
         self.velocity = 0
         self.angle = 0
+        self.ptime = 0
+        self.init_h = 0
+        self.target = None
+        self.target_distance = 0
+        self.source = None
 
     def is_hit(self,laser):
         return False
 
-    def set_target(self,distance,height):
-        self.target_distance = distance
-        self.target_height = height
 
-    def set_cannon_param(self,velocity,angle):
-        self.angle = angle
-        self.velocity = velocity
+
+    def set_source_target(self,source,target):
+        self.target = target
+        self.source = source
+        self.set_pos(source.pos)
+
+        self.target_distance = self.target.rect.x - self.source.rect.x - self.target.size[0]/2
+        self.velocity = get_projectile_initial_v(math.radians(45),self.target_distance)
+
+    def set_source(self,source):
+        self.source = source
+        self.set_pos(source.pos)
 
     def update(self):
-        if self.moving == True:
-            self.rect.x += 30
+
+        if self.moving == True and self.rect.y > 0:
+            self.ptime += 1/5
+            curr_pos = get_projectile_xy(self.velocity,math.radians(45),self.ptime,self.init_h)
+            #self.init_h += curr_pos[1]
+            self.rect.x = curr_pos[0] + self.source.rect.x + self.source.size[0]
+            self.rect.y = abs( self.source.rect.y -curr_pos[1])
 
         self.pos = (self.rect.x, self.rect.y)
-        self.clock.tick(40)
+
 
 
