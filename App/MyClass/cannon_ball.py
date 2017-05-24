@@ -19,7 +19,11 @@ class CannonBall(BaseObject):
         self.source = None
 
     def is_hit(self,laser):
-        return False
+        print((self.pos),(laser.target))
+        if self.pos == laser.target :
+            return True
+        else:
+            return False
 
 
 
@@ -28,7 +32,7 @@ class CannonBall(BaseObject):
         self.source = source
         self.set_pos(source.pos)
 
-        self.target_distance = self.target.rect.x - self.source.rect.x - self.target.size[0]/2
+        self.target_distance = self.target.rect.x - self.source.rect.x + 150
         self.velocity = get_projectile_initial_v(math.radians(45),self.target_distance)
 
     def set_source(self,source):

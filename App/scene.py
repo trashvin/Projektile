@@ -6,6 +6,7 @@ from App.MyClass.bomber import *
 from App.MyClass.laser_defense import *
 from App.MyClass.bomb import *
 from App.MyClass.cannon_ball import *
+from App.MyClass.explosion import *
 
 from App.constant import *
 
@@ -39,7 +40,11 @@ class Scene():
         city_sprites = pygame.sprite.Group()
         all_sprites = pygame.sprite.Group()
 
-        bomb = Bomb(self.screen,(30,60),"Bomb")
+        bomb = Bomb(self.screen,(20,40),"Bomb")
+
+        explosion_sm = Explosion(self.screen,(50,50),"Small Explosion")
+        explosion_md = Explosion(self.screen,(150,150),"Medium Explosion")
+        explosion_bg = Explosion(self.screen,(300,300), "Big Explosion")
 
         tank = Tank(self.screen,(70,40))
         tank.set_pos((20,443))
@@ -70,6 +75,7 @@ class Scene():
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
+                        self.set_background()
                         running = False
                     if event.key == K_SPACE:
                         tank.move(True)
@@ -91,24 +97,39 @@ class Scene():
                 cannon_ball.move(True)
                 all_sprites.add(cannon_ball)
 
+            if city.is_defense_breached(cannon_ball) == True and all_sprites.has(cannon_ball) and laser_launcher.available == True:
+                laser_launcher.set_target(cannon_ball)
+                laser_launcher.fire_laser = True
+                if cannon_ball.is_hit(laser_launcher) == True:
+                    explosion_sm.set_pos(cannon_ball.pos)
+                    all_sprites.remove(cannon_ball)
+                    all_sprites.add(explosion_sm)
+                    bomber.move(True)
+
+
             #if city.is_hit() == True:
             #    bomber.move(True)
 
             if bomber.rect.x <= tank.move_distance and bomb.dropped == False:
-                bomb.set_pos((bomber.rect.x,bomber.rect.y+30))
+                bomb.set_pos((bomber.rect.x+10,bomber.rect.y+30))
                 bomb.move(True)
                 bomb.set_dropped(True)
                 all_sprites.add(bomb)
 
             if tank.is_hit(bomb) == True:
                 bomb.move(False)
+                explosion_md.set_pos((bomb.pos[0]-50,bomb.pos[1]-50))
+                #tank.explode(bomb)
+                all_sprites.add(explosion_md)
                 all_sprites.remove(tank)
                 all_sprites.remove(bomb)
 
             if city.is_hit(cannon_ball) == True:
+                explosion_bg.set_pos(city.pos)
                 city_sprites.remove(city)
                 all_sprites.remove(laser_launcher)
                 all_sprites.remove(cannon_ball)
+                all_sprites.add(explosion_bg)
 
             all_sprites.clear(self.screen,temp_surface)
             all_sprites.update()

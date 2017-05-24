@@ -3,7 +3,6 @@ import os,sys
 from App.library import *
 from App.MyClass.base_object import BaseObject
 
-
 import pygame
 from pygame.locals import *
 
@@ -19,6 +18,13 @@ class City(BaseObject):
     def is_hit(self,cannon_ball):
 
         if self.rect.x + 150 <= cannon_ball.rect.x and cannon_ball.moving == True:
+            return True
+        else:
+            return False
+
+    def is_defense_breached(self,attacker):
+
+        if attacker.rect.x >= self.rect.x - 100 :
             return True
         else:
             return False

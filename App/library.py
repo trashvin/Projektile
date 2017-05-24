@@ -29,16 +29,16 @@ def get_projectile_VY(initial_v,angle):
 def get_projectile_dist_x(velocity_x,time):
     return velocity_x * time
 
-def get_projectile_dist_y(initial_v,time):
-    return ((initial_v * time) - ( 0.5 * G_CONSTANT * time *time))
+def get_projectile_dist_y(initial_v,time,angle):
+    return ((initial_v * math.sin(angle) * time) - ( 0.5 * G_CONSTANT * time *time))
 
 def get_projectile_initial_v(angle, distance):
     return math.sqrt( (distance * G_CONSTANT)/(math.sin(2 * angle)))
 
 
 def get_projectile_xy(initial_v,initial_angle,time,initial_h = 0):
-    y = get_projectile_dist_y(initial_v,time)
+    y = get_projectile_dist_y(initial_v,time,initial_angle)
     x = initial_v * math.cos(initial_angle) * time
-
     return (x,y)
+
 

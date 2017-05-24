@@ -11,7 +11,7 @@ class Tank(BaseObject):
     def __init__(self,screen,size, name = "Tank"):
         super(Tank,self).__init__(screen,size,name)
 
-        self.move_distance = 50
+        self.move_distance = 450
 
         tank_img = os.path.join(get_image_dir(),"tanker.png")
         self.set_image_from_file(tank_img,1)
@@ -39,6 +39,7 @@ class Tank(BaseObject):
             return True
         else:
             return False
+
 
     def update(self):
 
