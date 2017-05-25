@@ -1,4 +1,5 @@
 import os,sys
+import random
 
 from App.library import *
 from App.MyClass.base_object import BaseObject
@@ -11,7 +12,7 @@ class Tank(BaseObject):
     def __init__(self,screen,size, name = "Tank"):
         super(Tank,self).__init__(screen,size,name)
 
-        self.move_distance = 450
+        self.move_distance = random.randint(50,700)
 
         tank_img = os.path.join(get_image_dir(),"tanker.png")
         self.set_image_from_file(tank_img,1)
@@ -46,6 +47,8 @@ class Tank(BaseObject):
         if self.moving == True:
             if self.rect.x < self.move_distance :
                 self.rect.x += 5
+
+
             else:
                 self.move(False)
                 self.moving == False

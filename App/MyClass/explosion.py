@@ -7,9 +7,13 @@ class Explosion(BaseObject):
 
         self.set_image_from_file("explosion_sm.png",1)
         self.show = False
-        self.duration = 3
+        self.time = 0
+
+    def restart_timer(self):
+        self.time= 0
+
+    def is_expired(self):
+        return (self.time > 0.5)
 
     def update(self):
-
-        if self.show == True:
-            pass
+        self.time += 1/40
