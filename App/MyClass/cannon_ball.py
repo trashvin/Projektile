@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import random
 
 from App.MyClass.base_object import BaseObject
 from App.library import *
@@ -32,8 +33,10 @@ class CannonBall(BaseObject):
         self.source = source
         self.set_pos(source.pos)
 
+        self.angle = random.randint(20,60)
+
         self.target_distance = self.target.rect.x - self.source.rect.x + 150
-        self.velocity = get_projectile_initial_v(math.radians(45),self.target_distance)
+        self.velocity = get_projectile_initial_v(math.radians(self.angle),self.target_distance)
 
     def set_source(self,source):
         self.source = source
@@ -43,7 +46,7 @@ class CannonBall(BaseObject):
 
         if self.moving == True and self.rect.y > 0:
             self.ptime += 1/5
-            curr_pos = get_projectile_xy(self.velocity,math.radians(45),self.ptime,self.init_h)
+            curr_pos = get_projectile_xy(self.velocity,math.radians(self.angle),self.ptime,self.init_h)
             #self.init_h += curr_pos[1]
             self.rect.x = curr_pos[0] + self.source.rect.x + self.source.size[0]
             self.rect.y = abs( self.source.rect.y -curr_pos[1])

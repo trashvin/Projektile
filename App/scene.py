@@ -77,8 +77,9 @@ class Scene():
         all_sprites.add(laser_launcher)
         scored = False
         #all_sprites.add(cannon_ball)
-        started = False
+        started = True
         running = True
+        tank.move(True)
         while running == True:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
@@ -86,8 +87,6 @@ class Scene():
                         pygame.display.quit()
                         pygame.quit()
                         sys.exit()
-                    if event.key == K_SPACE:
-                        tank.move(True)
                     if event.key == K_r:
                         self.start()
                 elif event.type == QUIT:
@@ -102,12 +101,13 @@ class Scene():
             self.screen.blit(put_text("city : ", self.score_font, CLR_WHITE), (1080, 30))
             self.screen.blit(put_text(str(self.city_score), self.score_font, CLR_WHITE), (1130, 30))
 
-            self.screen.blit(put_text("Cannon Ball : " + str(cannon_ball.rect), self.score_font, CLR_WHITE), (10,500))
+            self.screen.blit(put_text("Tank Target Distance : " + str(cannon_ball.target_distance),self.info_font,CLR_WHITE),(10,500))
+            self.screen.blit(put_text("Tank Artillery Initial Velocity : " + str(cannon_ball.velocity),self.info_font,CLR_WHITE),(10,515))
+            self.screen.blit(put_text("Tank Artillery Attack Angle : " + str(cannon_ball.angle), self.info_font, CLR_WHITE),(10, 530))
 
-            if started == False:
-                self.screen.blit(put_text(INST_START,self.info_font,CLR_WHITE),(10,580))
-            else:
-                self.screen.blit(put_text(INST_RESTART, self.info_font, CLR_WHITE), (10, 580))
+            self.screen.blit(put_text("Cannon Ball Trajectory (x,y) : " + str((cannon_ball.rect[0],cannon_ball.rect[1])), self.info_font, CLR_WHITE), (500,500))
+
+            self.screen.blit(put_text(INST_RESTART, self.info_font, CLR_WHITE), (10, 580))
 
             self.screen.blit(put_text(INST_QUIT, self.info_font, CLR_WHITE), (1060, 580))
 
@@ -140,7 +140,7 @@ class Scene():
                 all_sprites.remove(explosion_sm)
 
             if bomber.rect.x <= tank.move_distance and bomb.dropped == False:
-                bomb.set_pos((bomber.rect.x+10,bomber.rect.y+30))
+                bomb.set_pos((bomber.rect.x+30,bomber.rect.y+30))
                 bomb.move(True)
                 bomb.set_dropped(True)
                 all_sprites.add(bomb)
@@ -175,6 +175,5 @@ class Scene():
             all_sprites.draw(self.screen)
 
             all_sprites.add(tank)
-            print(self.tank_score,self.city_score)
             pygame.display.update()
             self.clock.tick(self.frame_rate)
