@@ -15,6 +15,7 @@ class Tank(BaseObject):
         self.move_distance = random.randint(50,700)
 
         tank_img = os.path.join(get_image_dir(),"tanker.png")
+        self.set_sound_from_file("tank_moving.wav")
         self.set_image_from_file(tank_img,1)
 
         self.cannon_exit_velocity = 1000

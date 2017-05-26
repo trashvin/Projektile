@@ -26,8 +26,6 @@ class CannonBall(BaseObject):
         else:
             return False
 
-
-
     def set_source_target(self,source,target):
         self.target = target
         self.source = source

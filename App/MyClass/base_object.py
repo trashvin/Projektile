@@ -46,7 +46,7 @@ class BaseObject(pygame.sprite.Sprite):
 
     def play_sound(self,play):
 
-        if self.sound_is_music == True:
+        if play == True:
             self.sound.play(-1,0)
         else:
             self.sound.stop()

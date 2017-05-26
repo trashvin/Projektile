@@ -25,7 +25,7 @@ class Scene():
         pygame.font.init()
 
         title_font_type = os.path.join(get_font_dir(),"hammerhead.ttf")
-        default_font_type = os.path.join(get_font_dir(),"arial.ttf")
+        default_font_type = os.path.join(get_font_dir(),"vgafix.fon")
         self.title_font = pygame.font.Font(title_font_type,30)
         self.info_font = pygame.font.Font(default_font_type,15)
         self.score_font = pygame.font.Font(title_font_type,15)
@@ -39,9 +39,19 @@ class Scene():
         bg_image = pygame.transform.scale( pygame.image.load(self.bg_image).convert(),(self.WIDTH,self.HEIGHT))
         self.screen.blit(bg_image,(0,0))
 
+    def set_scene_text(self):
+        self.screen.blit(put_text(APP_TITLE, self.title_font, CLR_WHITE), (10, 10))
+        self.screen.blit(put_text(APP_VERSION,self.info_font,CLR_WHITE),(260,25))
+        self.screen.blit(put_text(TXT_SCORE, self.score_font, CLR_WHITE), (1000, 10))
+        self.screen.blit(put_text(TXT_TANK, self.score_font, CLR_WHITE), (1000, 30))
+        self.screen.blit(put_text(str(self.tank_score), self.score_font, CLR_WHITE), (1050, 30))
+        self.screen.blit(put_text(TXT_CITY, self.score_font, CLR_WHITE), (1080, 30))
+        self.screen.blit(put_text(str(self.city_score), self.score_font, CLR_WHITE), (1130, 30))
+        self.screen.blit(put_text(INST_RESTART, self.info_font, CLR_WHITE), (10, 580))
+        self.screen.blit(put_text(INST_QUIT, self.info_font, CLR_WHITE), (1060, 580))
+
 
     def start(self):
-
 
         city_sprites = pygame.sprite.Group()
         all_sprites = pygame.sprite.Group()
@@ -93,23 +103,11 @@ class Scene():
                     running == False
 
             self.set_background()
-            self.screen.blit(put_text(APP_TITLE, self.title_font, CLR_WHITE), (10, 10))
-            self.screen.blit(put_text(APP_VERSION,self.info_font,CLR_WHITE),(260,25))
-            self.screen.blit(put_text("SCORE", self.score_font, CLR_WHITE), (1000, 10))
-            self.screen.blit(put_text("tank : ", self.score_font, CLR_WHITE), (1000, 30))
-            self.screen.blit(put_text(str(self.tank_score), self.score_font, CLR_WHITE), (1050, 30))
-            self.screen.blit(put_text("city : ", self.score_font, CLR_WHITE), (1080, 30))
-            self.screen.blit(put_text(str(self.city_score), self.score_font, CLR_WHITE), (1130, 30))
-
-            self.screen.blit(put_text("Tank Target Distance : " + str(cannon_ball.target_distance),self.info_font,CLR_WHITE),(10,500))
-            self.screen.blit(put_text("Tank Artillery Initial Velocity : " + str(cannon_ball.velocity),self.info_font,CLR_WHITE),(10,515))
-            self.screen.blit(put_text("Tank Artillery Attack Angle : " + str(cannon_ball.angle), self.info_font, CLR_WHITE),(10, 530))
-
-            self.screen.blit(put_text("Cannon Ball Trajectory (x,y) : " + str((cannon_ball.rect[0],cannon_ball.rect[1])), self.info_font, CLR_WHITE), (500,500))
-
-            self.screen.blit(put_text(INST_RESTART, self.info_font, CLR_WHITE), (10, 580))
-
-            self.screen.blit(put_text(INST_QUIT, self.info_font, CLR_WHITE), (1060, 580))
+            self.set_scene_text()
+            self.screen.blit(put_text(INFO_TARGET_DISTANCE + str(cannon_ball.target_distance), self.info_font, CLR_WHITE), (10, 490))
+            self.screen.blit(put_text(INFO_ARTILLERY_INIT_V + str(cannon_ball.velocity), self.info_font, CLR_WHITE),(10, 505))
+            self.screen.blit(put_text(INFO_ARTILLERY_ANGLE + str(cannon_ball.angle), self.info_font, CLR_WHITE),(10, 520))
+            self.screen.blit(put_text(INFO_ARTILLERY_PATH + str((cannon_ball.rect[0], cannon_ball.rect[1])), self.info_font,CLR_WHITE), (10, 535))
 
             city_sprites.draw(self.screen)
 
