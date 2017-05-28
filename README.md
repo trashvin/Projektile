@@ -12,3 +12,7 @@ The program is still under development. All needed feature and enhancements are 
 - Windows 10 Creators Update
 - PyCharm 2017 Community 2017.1
 
+## How To Run The Program
+- Dowload/Clone the repo
+- Run $python3 App/main.py
+
