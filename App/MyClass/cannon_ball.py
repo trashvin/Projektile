@@ -43,7 +43,7 @@ class CannonBall(BaseObject):
     def update(self):
 
         if self.moving == True and self.rect.y > 0:
-            self.ptime += 1/5
+            self.ptime += 1/5.0
             curr_pos = get_projectile_xy(self.velocity,math.radians(self.angle),self.ptime,self.init_h)
             #self.init_h += curr_pos[1]
             self.rect.x = curr_pos[0] + self.source.rect.x + self.source.size[0]
