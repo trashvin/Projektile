@@ -1,4 +1,5 @@
-# Projektile
+# Projektile [![Build Status](https://travis-ci.org/trashvin/Projektile.svg?branch=master)](https://travis-ci.org/trashvin/Projektile)
+
 
 Projektile is a simple projectile motion simulation program created with Python 3.3 and Pygame. It is based on a C programming project in one of the training I attended decade ago.
 
