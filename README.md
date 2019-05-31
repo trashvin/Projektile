@@ -6,7 +6,7 @@ Projektile is a simple projectile motion simulation program created with Python 
 ![](Screenshots/projektile.gif)
 
 
-The program is still under development. All needed feature and enhancements are listed under Issues. Feel free to fork or issue pull request.
+The program is still under development. All needed feature and enhancements are listed under Issues. Feel free to fork issue pull request or log issues.
 
 ## Development Environment:
 - Python 3.3 with Pygame
