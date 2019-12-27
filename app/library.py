@@ -1,19 +1,19 @@
 import os, sys
 import math
-from App.constant import *
+from app.constant import *
 
 def get_image_dir():
     curr_dir = os.getcwd()
     print(curr_dir)
-    return os.path.join(curr_dir,"Images")
+    return os.path.join(curr_dir,"resource/image")
 
 def get_sound_dir():
     curr_dir = os.getcwd()
-    return os.path.join(curr_dir,"Sound")
+    return os.path.join(curr_dir,"resource/sound")
 
 def get_font_dir():
     curr_dir = os.getcwd()
-    return os.path.join(curr_dir,"Font")
+    return os.path.join(curr_dir,"resource/font")
 
 def put_text(text,font,color):
     return font.render(text,True,color)

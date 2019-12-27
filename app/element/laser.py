@@ -1,4 +1,4 @@
-from App.MyClass.base_object import BaseObject
+from app.element.base_object import BaseObject
 
 class Laser(BaseObject):
 

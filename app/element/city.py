@@ -1,7 +1,7 @@
 import os,sys
 
-from App.library import *
-from App.MyClass.base_object import BaseObject
+from app.library import *
+from app.element.base_object import BaseObject
 
 import pygame
 from pygame.locals import *

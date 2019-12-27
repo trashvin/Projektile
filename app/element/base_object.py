@@ -1,6 +1,6 @@
 import os,sys
 
-from App.library import *
+from app.library import *
 
 import pygame
 from pygame.locals import *

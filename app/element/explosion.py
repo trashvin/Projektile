@@ -1,4 +1,4 @@
-from App.MyClass.base_object import *
+from app.element.base_object import *
 
 class Explosion(BaseObject):
 

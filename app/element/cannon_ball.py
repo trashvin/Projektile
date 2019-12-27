@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import *
 import random
 
-from App.MyClass.base_object import BaseObject
-from App.library import *
+from app.element.base_object import BaseObject
+from app.library import *
 
 class CannonBall(BaseObject):
 

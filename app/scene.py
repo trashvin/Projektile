@@ -1,14 +1,14 @@
 import pygame
 from pygame.locals import *
-from App.MyClass.tank import *
-from App.MyClass.city import *
-from App.MyClass.bomber import *
-from App.MyClass.laser_defense import *
-from App.MyClass.bomb import *
-from App.MyClass.cannon_ball import *
-from App.MyClass.explosion import *
+from app.element.tank import *
+from app.element.city import *
+from app.element.bomber import *
+from app.element.laser_defense import *
+from app.element.bomb import *
+from app.element.cannon_ball import *
+from app.element.explosion import *
 
-from App.constant import *
+from app.constant import *
 
 class Scene():
 
